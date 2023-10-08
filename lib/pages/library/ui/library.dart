@@ -2,10 +2,10 @@ import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../constants/navigation_routes.dart';
+
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
-
-  static const String routeName = '/library';
 
   @override
   State<LibraryPage> createState() => _LibraryPageState();
@@ -21,7 +21,11 @@ class _LibraryPageState extends State<LibraryPage> {
   }
 
   final book = AudioBook(
-    title: 'The Hobbit', bookUris: [], coverImage: '', bookUrl: '',);
+    title: 'The Hobbit',
+    bookUris: [],
+    coverImage: '',
+    bookUrl: '',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,10 @@ class _LibraryPageState extends State<LibraryPage> {
         children: [
           Text('Library'),
           ElevatedButton(
-            onPressed: () => context.push('${LibraryPage.routeName}/book', extra:book,),
+            onPressed: () => context.push(
+              '$libraryRoute/book',
+              extra: book,
+            ),
             child: Text('Browse'),
           ),
           ElevatedButton(onPressed: _incrementCounter, child: Text('increse')),
