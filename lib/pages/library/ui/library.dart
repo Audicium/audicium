@@ -1,3 +1,4 @@
+import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,15 +20,19 @@ class _LibraryPageState extends State<LibraryPage> {
     });
   }
 
+  final book = AudioBook(
+    title: 'The Hobbit', bookUris: [], coverImage: '', bookUrl: '',);
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Library'),
           ElevatedButton(
-            onPressed: () => context.go("/browse"),
-            child: Text('Browse   $clicked'),
+            onPressed: () => context.push('${LibraryPage.routeName}/book', extra:book,),
+            child: Text('Browse'),
           ),
           ElevatedButton(onPressed: _incrementCounter, child: Text('increse')),
         ],

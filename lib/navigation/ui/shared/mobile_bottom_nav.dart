@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-ValueNotifier<int> selectedPage = ValueNotifier<int>(0);
-
 class MobileNavBar extends StatelessWidget {
   const MobileNavBar({required this.navShell, super.key});
 
