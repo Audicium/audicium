@@ -1,4 +1,5 @@
 import 'package:audicium/constants/extensions.dart';
+import 'package:audicium/constants/responsive.dart';
 import 'package:audicium/navigation/ui/desktop/desktop_base_scaffold.dart';
 import 'package:audicium/navigation/ui/desktop/desktop_nav_rail.dart';
 import 'package:audicium/navigation/ui/mobile/mobile_bottom_bar.dart';
@@ -24,7 +25,7 @@ class BaseScaffoldSelector extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         // Use for tablets and desktops
-        if (constraints.maxWidth > 450) {
+        if (constraints.maxWidth > mobileMaxWidth) {
           return DesktopBaseScaffold(
             navShell: navShell,
             bottomNav: DesktopNavRail(

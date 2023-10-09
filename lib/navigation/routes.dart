@@ -101,9 +101,7 @@ final mobileRouter = GoRouter(
                   builder: (context, state) {
                     final srcId = state.pathParameters[browseSourceIdParam]!;
                     final controller = pluginsList[srcId]!.controllerFactory();
-                    return Scaffold(
-                      body: BrowseSrcPage(srcController: controller),
-                    );
+                    return BrowseSrcPage(srcController: controller);
                   },
                   routes: [
                     GoRoute(
@@ -120,11 +118,9 @@ final mobileRouter = GoRouter(
                       builder: (context, state) {
                         final url = state.pathParameters[browseBookUrlParam]!;
                         final controller = state.extra! as ExtensionController;
-                        return Scaffold(
-                          body: BrowseBookDetailsPage(
-                            bookDetailsController: controller,
-                            url: url,
-                          ),
+                        return BrowseBookDetailsPage(
+                          bookDetailsController: controller,
+                          url: url,
                         );
                       },
                     ),

@@ -1,5 +1,6 @@
-import 'package:audicium/pages/browse/ui/shared/plugin_listile.dart';
-import 'package:audicium/plugins/plugins.dart';
+import 'package:audicium/constants/utils.dart';
+import 'package:audicium/pages/browse/ui/desktop/desktop_browse_page.dart';
+import 'package:audicium/pages/browse/ui/mobile/mobile_browse_page.dart';
 import 'package:flutter/material.dart';
 
 class BrowsePage extends StatelessWidget {
@@ -7,14 +8,9 @@ class BrowsePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Browse Src'),
-      ),
-      body: Column(
-        children:
-            pluginsList.values.map((e) => PluginListTile(plugin: e)).toList(),
-      ),
+    return const LayoutSwitcher(
+      mobileLayout: MobileBrowsePage(),
+      desktopLayout: DesktopBrowsePage(),
     );
   }
 }
