@@ -1,4 +1,4 @@
-import 'package:audicium/constants/navigation_routes.dart';
+import 'package:audicium/navigation/navigation_routes.dart';
 import 'package:audicium/navigation/ui/shared/scaffold_selector.dart';
 import 'package:audicium/pages/browse/ui/browse.dart';
 import 'package:audicium/pages/browse_book/ui/browse_book.dart';
@@ -6,7 +6,6 @@ import 'package:audicium/pages/browse_src/ui/browse_src.dart';
 import 'package:audicium/pages/library/ui/library.dart';
 import 'package:audicium/pages/library/ui/test.dart';
 import 'package:audicium/pages/library_book/ui/library_book.dart';
-import 'package:audicium/pages/library_book/ui/shared/book_base_screen.dart';
 import 'package:audicium/pages/settings/ui/settings.dart';
 import 'package:audicium/plugins/plugins.dart';
 import 'package:audicium_extension_base/audicium_extension_base.dart';
@@ -66,9 +65,7 @@ final mobileRouter = GoRouter(
                   },
                   builder: (context, state) {
                     final book = state.extra! as AudioBook;
-                    return BookBaseScreen(
-                      body: LibraryBookDetails(book: book),
-                    );
+                    return LibraryBookDetails(book: book);
                   },
                 ),
                 GoRoute(
@@ -94,7 +91,8 @@ final mobileRouter = GoRouter(
                   path: browseSourceRoute,
                   name: browseSourceRouteName,
                   redirect: (context, state) {
-                    if (!state.pathParameters.containsKey(browseSourceIdParam) ||
+                    if (!state.pathParameters
+                            .containsKey(browseSourceIdParam) ||
                         state.pathParameters[browseSourceIdParam] == null) {
                       return browseRoute;
                     }
@@ -109,10 +107,10 @@ final mobileRouter = GoRouter(
                   },
                   routes: [
                     GoRoute(
-                      path: ':$browseBookDetailsParam',
+                      path: browseSourceBookRoute,
                       name: browseSourceBookRouteName,
                       redirect: (context, state) {
-                        if (state.pathParameters[browseBookDetailsParam] == null ||
+                        if (state.pathParameters[browseBookUrlParam] == null ||
                             state.extra == null ||
                             state.extra is! ExtensionController) {
                           return browseRoute;
@@ -120,7 +118,7 @@ final mobileRouter = GoRouter(
                         return null;
                       },
                       builder: (context, state) {
-                        final url = state.pathParameters[browseBookDetailsParam]!;
+                        final url = state.pathParameters[browseBookUrlParam]!;
                         final controller = state.extra! as ExtensionController;
                         return Scaffold(
                           body: BrowseBookDetailsPage(
@@ -132,7 +130,7 @@ final mobileRouter = GoRouter(
                     ),
                   ],
                 ),
-              ]
+              ],
             ),
           ],
         ),
@@ -150,10 +148,5 @@ final mobileRouter = GoRouter(
         ),
       ],
     ),
-    // library
-
-    // browse
-
-    // settings
   ],
 );

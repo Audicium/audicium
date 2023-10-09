@@ -1,4 +1,4 @@
-import 'package:audicium/constants/navigation_routes.dart';
+import 'package:audicium/navigation/navigation_routes.dart';
 import 'package:audicium_models/plugins.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

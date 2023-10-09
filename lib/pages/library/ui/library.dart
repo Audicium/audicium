@@ -3,7 +3,7 @@ import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../constants/navigation_routes.dart';
+import '../../../navigation/navigation_routes.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
