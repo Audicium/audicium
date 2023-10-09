@@ -1,5 +1,6 @@
-import 'package:audicium/navigation/logic/routes.dart';
+import 'package:audicium/navigation/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const MyApp());

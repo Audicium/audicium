@@ -1,3 +1,4 @@
+import 'package:audicium/pages/library/ui/test.dart';
 import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +28,9 @@ class _LibraryPageState extends State<LibraryPage> {
     bookUrl: '',
   );
 
+  final pathnamed = '$libraryRoute/${TestRoute.routeName}';
+  final named = 'test';
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -35,10 +39,7 @@ class _LibraryPageState extends State<LibraryPage> {
         children: [
           Text('Library'),
           ElevatedButton(
-            onPressed: () => context.push(
-              '$libraryRoute/book',
-              extra: book,
-            ),
+            onPressed: () => context.pushNamed(libraryBookRouteName,extra: book),
             child: Text('Browse'),
           ),
           ElevatedButton(onPressed: _incrementCounter, child: Text('increse')),

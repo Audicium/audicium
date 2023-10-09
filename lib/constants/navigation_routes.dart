@@ -1,9 +1,9 @@
 // Routes
 const String libraryRoute = '/library';
-const String libraryBookRoute = '$libraryRoute/book';
+const String libraryBookRoute = 'book';
 
 const String browseRoute = '/browse';
-const String browseSourceRoute = '$browseRoute/:$browseSourceIdParam';
+const String browseSourceRoute = ':$browseSourceIdParam';
 // const String browseSourceBookRoute = '/book:$browseBookParam';
 
 const String settingsRoute = '/settings';

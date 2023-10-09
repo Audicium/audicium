@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class MobileNavBar extends StatelessWidget {
-  const MobileNavBar({required this.navShell, super.key});
+class DesktopNavRail extends StatelessWidget {
+  const DesktopNavRail({
+    required this.navShell,
+    super.key,
+  });
 
   final StatefulNavigationShell navShell;
 
   @override
   Widget build(BuildContext context) {
-    return NavigationBar(
-      onDestinationSelected: _pageSelector,
-      selectedIndex: navShell.currentIndex,
+    return NavigationRail(
+      labelType: NavigationRailLabelType.all,
       destinations: const [
-        NavigationDestination(
+        NavigationRailDestination(
           icon: Icon(Icons.home),
-          label: 'Home',
+          label: Text('Home'),
         ),
-        NavigationDestination(
+        NavigationRailDestination(
           icon: Icon(Icons.browse_gallery),
-          label: 'Browse',
+          label: Text('Browse'),
         ),
-        NavigationDestination(
+        NavigationRailDestination(
           icon: Icon(Icons.settings),
-          label: 'Settings',
+          label: Text('Settings'),
         ),
       ],
+      selectedIndex: navShell.currentIndex,
+      onDestinationSelected: _pageSelector,
     );
   }
 
