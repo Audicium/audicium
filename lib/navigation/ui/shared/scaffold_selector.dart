@@ -27,17 +27,30 @@ class BaseScaffoldSelector extends StatelessWidget {
         if (constraints.maxWidth > 450) {
           return DesktopBaseScaffold(
             navShell: navShell,
-            bottomNav: DesktopNavRail(navShell: navShell),
+            bottomNav: DesktopNavRail(
+              navShell: navShell,
+              switchPage: _pageSelector,
+            ),
           );
         } else {
           return MobileBaseScaffold(
             navShell: navShell,
             bottomNav: isPageWithNavBar
-                ? MobileNavBar(navShell: navShell)
+                ? MobileNavBar(
+                    navShell: navShell,
+                    switchPage: _pageSelector,
+                  )
                 : const SizedBox(),
           );
         }
       },
+    );
+  }
+
+  void _pageSelector(int page) {
+    navShell.goBranch(
+      page,
+      initialLocation: page == navShell.currentIndex,
     );
   }
 }

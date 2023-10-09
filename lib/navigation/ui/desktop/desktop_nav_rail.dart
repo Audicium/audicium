@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 class DesktopNavRail extends StatelessWidget {
   const DesktopNavRail({
     required this.navShell,
+    required this.switchPage,
     super.key,
   });
 
+  final void Function(int) switchPage;
   final StatefulNavigationShell navShell;
 
   @override
@@ -28,14 +30,7 @@ class DesktopNavRail extends StatelessWidget {
         ),
       ],
       selectedIndex: navShell.currentIndex,
-      onDestinationSelected: _pageSelector,
-    );
-  }
-
-  void _pageSelector(int page) {
-    navShell.goBranch(
-      page,
-      initialLocation: page == navShell.currentIndex,
+      onDestinationSelected: switchPage,
     );
   }
 }

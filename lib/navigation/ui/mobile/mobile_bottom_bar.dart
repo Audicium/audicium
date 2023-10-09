@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class MobileNavBar extends StatelessWidget {
-  const MobileNavBar({required this.navShell, super.key});
+  const MobileNavBar({required this.navShell, super.key, required this.switchPage});
 
   final StatefulNavigationShell navShell;
+  final void Function(int) switchPage;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class MobileNavBar extends StatelessWidget {
       height: MediaQuery.of(context).size.width * 0.3,
       width: double.infinity,
       child: NavigationBar(
-        onDestinationSelected: _pageSelector,
+        onDestinationSelected: switchPage,
         selectedIndex: navShell.currentIndex,
         destinations: const [
           NavigationDestination(
@@ -29,13 +30,6 @@ class MobileNavBar extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  void _pageSelector(int page) {
-    navShell.goBranch(
-      page,
-      initialLocation: page == navShell.currentIndex,
     );
   }
 }
