@@ -1,8 +1,10 @@
 import 'package:audicium/navigation/routes.dart';
+import 'package:audicium/services/init.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-void main() {
+Future<void> main() async {
+  await initServices();
   runApp(const MyApp());
 }
 

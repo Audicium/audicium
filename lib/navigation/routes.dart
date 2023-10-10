@@ -1,6 +1,7 @@
 import 'package:audicium/constants/utils.dart';
 import 'package:audicium/navigation/navigation_routes.dart';
 import 'package:audicium/navigation/ui/shared/scaffold_selector.dart';
+import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/controllers/browse_book_details_controller.dart';
 import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/ui/browse_book.dart';
 import 'package:audicium/pages/browse/routes/browse_src/ui/browse_src.dart';
 import 'package:audicium/pages/browse/ui/browse.dart';
@@ -130,10 +131,22 @@ final mobileRouter = GoRouter(
                       builder: (context, state) {
                         final url = state.pathParameters[browseBookUrlParam]!;
                         final displayBook = state.extra! as DisplayBook;
+                        // register controller
+                        if (!getIt.isRegistered<BrowseBookDetailController>()) {
+                          getIt.registerSingleton<BrowseBookDetailController>(
+                            BrowseBookDetailController(
+                              selectedBook: displayBook,
+                            ),
+                          );
+                        }
                         return BrowseBookDetailsPage(
                           url: url,
                           book: displayBook,
                         );
+                      },
+                      onExit: (context) {
+                        getIt.unregister<BrowseBookDetailController>();
+                        return true;
                       },
                     ),
                   ],
