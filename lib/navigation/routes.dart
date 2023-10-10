@@ -1,3 +1,4 @@
+import 'package:audicium/constants/utils.dart';
 import 'package:audicium/navigation/navigation_routes.dart';
 import 'package:audicium/navigation/ui/shared/scaffold_selector.dart';
 import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/ui/browse_book.dart';
@@ -29,7 +30,8 @@ final GlobalKey<NavigatorState> settingsNavigatorKey =
 
 final mobileRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: libraryRoute,
+  debugLogDiagnostics: true,
+  initialLocation: browseRoute,
   redirect: (context, state) {
     if (state.fullPath == '/') {
       return libraryRoute;
@@ -100,8 +102,18 @@ final mobileRouter = GoRouter(
                   },
                   builder: (context, state) {
                     final srcId = state.pathParameters[browseSourceIdParam]!;
-                    final controller = pluginsList[srcId]!.controllerFactory();
-                    return BrowseSrcPage(srcController: controller);
+                    if (!getIt.isRegistered<ExtensionController>()) {
+                      getIt.registerSingleton<ExtensionController>(
+                        pluginsList[srcId]!.controllerFactory(),
+                      );
+                    }
+                    return const BrowseSrcPage();
+                  },
+                  onExit: (context) {
+                    getIt.unregister<ExtensionController>(
+                      disposingFunction: (p0) => p0.dispose(),
+                    );
+                    return true;
                   },
                   routes: [
                     GoRoute(
@@ -110,17 +122,17 @@ final mobileRouter = GoRouter(
                       redirect: (context, state) {
                         if (state.pathParameters[browseBookUrlParam] == null ||
                             state.extra == null ||
-                            state.extra is! ExtensionController) {
+                            state.extra is! DisplayBook) {
                           return browseRoute;
                         }
                         return null;
                       },
                       builder: (context, state) {
                         final url = state.pathParameters[browseBookUrlParam]!;
-                        final controller = state.extra! as ExtensionController;
+                        final displayBook = state.extra! as DisplayBook;
                         return BrowseBookDetailsPage(
-                          bookDetailsController: controller,
                           url: url,
+                          book: displayBook,
                         );
                       },
                     ),

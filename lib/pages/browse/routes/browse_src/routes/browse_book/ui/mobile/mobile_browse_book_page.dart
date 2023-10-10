@@ -5,8 +5,15 @@ class MobileBrowseBookPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('You are Browsing the book inside the selected src'),
+    return Column(
+      children: [
+        AppBar(
+          title: const Text('Browsing Book details'),
+        ),
+        const Center(
+          child: Text('You are Browsing the book inside the selected src'),
+        ),
+      ],
     );
   }
 }

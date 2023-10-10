@@ -4,7 +4,7 @@ const String libraryBookRoute = 'book';
 
 const String browseRoute = '/browse';
 const String browseSourceRoute = ':$browseSourceIdParam';
-const String browseSourceBookRoute = 'book:$browseBookUrlParam';
+const String browseSourceBookRoute = ':$browseBookUrlParam';
 
 const String settingsRoute = '/settings';
 
