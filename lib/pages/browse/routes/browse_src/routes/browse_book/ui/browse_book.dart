@@ -5,14 +5,7 @@ import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 
 class BrowseBookDetailsPage extends StatelessWidget {
-  const BrowseBookDetailsPage({
-    required this.url,
-    required this.book,
-    super.key,
-  });
-
-  final String url;
-  final DisplayBook book;
+  const BrowseBookDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

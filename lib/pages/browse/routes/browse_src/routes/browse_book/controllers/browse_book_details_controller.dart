@@ -29,13 +29,11 @@ class BrowseBookDetailController {
 
   String? errorMessage;
 
-  // @override
-  // Future<void> onInit() async {
-  //   await checkLibrary();
-  //   debugPrint('isBookInLibrary: ${isBookInLibrary.value}');
-  //   metaDataFutureListener();
-  //   super.onInit();
-  // }
+  Future<void> init() async {
+    await checkLibrary();
+    logger.i('is Book In Library: ${isBookInLibrary.value}');
+    metaDataFutureListener();
+  }
 
   // async listeners
   void metaDataFutureListener() {

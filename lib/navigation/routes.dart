@@ -111,6 +111,7 @@ final mobileRouter = GoRouter(
                     return const BrowseSrcPage();
                   },
                   onExit: (context) {
+                    logger.i('Disposing controller');
                     getIt.unregister<ExtensionController>(
                       disposingFunction: (p0) => p0.dispose(),
                     );
@@ -139,10 +140,7 @@ final mobileRouter = GoRouter(
                             ),
                           );
                         }
-                        return BrowseBookDetailsPage(
-                          url: url,
-                          book: displayBook,
-                        );
+                        return const BrowseBookDetailsPage();
                       },
                       onExit: (context) {
                         getIt.unregister<BrowseBookDetailController>();

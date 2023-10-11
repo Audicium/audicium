@@ -24,7 +24,7 @@ class _MobileBrowseSrcPageState extends State<MobileBrowseSrcPage> {
 
   // final isGridView = true.obs;
   // final gridCount = 2.obs;
-
+  // TODO handle network errors
   @override
   Widget build(BuildContext context) {
     // appBar: AppBar(title: Text(title)),
