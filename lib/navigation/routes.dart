@@ -104,18 +104,12 @@ final mobileRouter = GoRouter(
                   builder: (context, state) {
                     final srcId = state.pathParameters[browseSourceIdParam]!;
                     if (!getIt.isRegistered<ExtensionController>()) {
+                      logger.i('Registering browse source controller');
                       getIt.registerSingleton<ExtensionController>(
                         pluginsList[srcId]!.controllerFactory(),
                       );
                     }
                     return const BrowseSrcPage();
-                  },
-                  onExit: (context) {
-                    logger.i('Disposing controller');
-                    getIt.unregister<ExtensionController>(
-                      disposingFunction: (p0) => p0.dispose(),
-                    );
-                    return true;
                   },
                   routes: [
                     GoRoute(
@@ -134,6 +128,8 @@ final mobileRouter = GoRouter(
                         final displayBook = state.extra! as DisplayBook;
                         // register controller
                         if (!getIt.isRegistered<BrowseBookDetailController>()) {
+                          logger
+                              .i('Registering browse book details controller');
                           getIt.registerSingleton<BrowseBookDetailController>(
                             BrowseBookDetailController(
                               selectedBook: displayBook,
@@ -141,10 +137,6 @@ final mobileRouter = GoRouter(
                           );
                         }
                         return const BrowseBookDetailsPage();
-                      },
-                      onExit: (context) {
-                        getIt.unregister<BrowseBookDetailController>();
-                        return true;
                       },
                     ),
                   ],

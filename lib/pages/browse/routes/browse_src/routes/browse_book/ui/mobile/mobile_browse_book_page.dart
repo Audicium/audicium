@@ -29,6 +29,13 @@ class _MobileBrowseBookPageState extends State<MobileBrowseBookPage> {
   }
 
   @override
+  void dispose() {
+    logger.i('Disposing of browse book controller');
+    getIt.unregister<BrowseBookDetailController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // final scrollController = ScrollController();
     return Column(

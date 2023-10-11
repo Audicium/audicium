@@ -22,6 +22,14 @@ class _MobileBrowseSrcPageState extends State<MobileBrowseSrcPage> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    logger.i('Disposing of src controller');
+    controller.dispose();
+    getIt.unregister<ExtensionController>();
+    super.dispose();
+  }
+
   // final isGridView = true.obs;
   // final gridCount = 2.obs;
   // TODO handle network errors

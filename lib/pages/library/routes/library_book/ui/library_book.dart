@@ -1,3 +1,6 @@
+import 'package:audicium/constants/utils.dart';
+import 'package:audicium/pages/library/routes/library_book/ui/desktop/desktop_lib_book_page.dart';
+import 'package:audicium/pages/library/routes/library_book/ui/mobile/mobile_lib_book_page.dart';
 import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +11,9 @@ class LibraryBookDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(book.title);
+    return const LayoutSwitcher(
+      mobileLayout: MobileLibraryBookPage(),
+      desktopLayout: DesktopLibraryBookPage(),
+    );
   }
 }
