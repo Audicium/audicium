@@ -1,5 +1,5 @@
 import 'package:audicium/constants/utils.dart';
-import 'package:audicium/services/library_manager.dart';
+import 'package:audicium/services/library_service.dart';
 import 'package:audicium_extension_base/extension.dart';
 import 'package:flutter/material.dart';
 

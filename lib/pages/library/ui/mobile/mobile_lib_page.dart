@@ -1,6 +1,6 @@
 import 'package:audicium/constants/utils.dart';
 import 'package:audicium/pages/browse/routes/browse_src/ui/shared/book_tile.dart';
-import 'package:audicium/services/library_manager.dart';
+import 'package:audicium/services/library_service.dart';
 import 'package:flutter/material.dart';
 
 
