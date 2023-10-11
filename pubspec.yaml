@@ -71,7 +71,8 @@ dependencies:
     path: ../Audicium sources/youtube
   audicium_galaxy_audiobooks:
     path: ../Audicium sources/galaxy_audiobooks
-
+  hotaudiobooks:
+    path: ../Audicium sources/hotaudiobooks
   # Nav
   go_router: ^11.1.3
 

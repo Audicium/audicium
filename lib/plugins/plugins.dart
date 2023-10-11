@@ -1,10 +1,11 @@
 import 'package:audicium_extension_base/audicium_extension_base.dart';
 import 'package:audicium_galaxy_audiobooks/constants.dart';
 import 'package:audicium_youtube/constants.dart';
+import 'package:hotaudiobooks/constants.dart';
 
 final pluginsList = {
   youtubePlugin.name.toLowerCase(): youtubePlugin,
-  galaxyPlugin.name.toLowerCase(): galaxyPlugin,
+  hotAudioBooksPlugin.name.toLowerCase(): hotAudioBooksPlugin,
 };
 
 ExtensionController getController(String source) =>
