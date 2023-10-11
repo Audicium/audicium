@@ -15,58 +15,109 @@ class AudiobookActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final saveFun = get<BrowseBookDetailController>().saveBook;
+    final controller = get<BrowseBookDetailController>();
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.08,
       width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          buildPlayerButton(),
-          ElevatedButton(
-            onPressed: false ? saveFun : null,
-            child: Row(
-              children: isBookInLibrary
-                  ? [const Icon(Icons.bookmark_outlined), const Text('Remove')]
-                  : [const Icon(Icons.bookmark_outline), const Text('Save')],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  ElevatedButton buildPlayerButton() {
-    // final playerController = get<PlayerInterface>();
-    final buttonReady = ValueNotifier(true); // -1 idle, 0 loading, 1 loaded
-    return ElevatedButton(
-      onPressed: false
-          ? () async {
-              // print(book.bookUris);
-              buttonReady.value = false;
-              logger.i('playing book ${book.title}');
-              await Future<void>.delayed(const Duration(seconds: 1));
-              // playerController.playBook(book);
-              buttonReady.value = true;
-            }
-          : null,
       child: ValueListenableBuilder(
-        valueListenable: buttonReady,
+        valueListenable: controller.metaDataState,
         builder: (context, value, child) {
-          return value
-              ? const Row(
-                  children: [
-                    Icon(Icons.play_arrow),
-                    Text('Start listening'),
-                  ],
-                )
-              : const Center(child: CircularProgressIndicator());
+          final isMetaDataReady = value == FutureStates.done;
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              PlayActionButton(
+                controller: controller,
+                buttonReady: isMetaDataReady,
+              ),
+              SaveBookButton(
+                controller: controller,
+                buttonReady: isMetaDataReady,
+              ),
+            ],
+          );
         },
       ),
     );
   }
 
 // checkMetaFile() {}
+}
+
+class PlayActionButton extends StatelessWidget {
+  const PlayActionButton({
+    required this.controller,
+    required this.buttonReady,
+    super.key,
+  });
+
+  final BrowseBookDetailController controller;
+  final bool buttonReady;
+
+  @override
+  Widget build(BuildContext context) {
+    final isPlayButtonReady = ValueNotifier(true);
+    return ValueListenableBuilder(
+      valueListenable: isPlayButtonReady,
+      builder: (context, playReady, child) {
+        return ElevatedButton(
+          onPressed: buttonReady && playReady
+              ? () async {
+                  // print(book.bookUris);
+                  isPlayButtonReady.value = false;
+                  logger.i('playing book ${controller.selectedBook.title}');
+                  await Future<void>.delayed(const Duration(seconds: 1));
+                  // TODO: implement player
+                  // playerController.playBook(book);
+                  isPlayButtonReady.value = true;
+                }
+              : null,
+          child: playReady
+              ? const Row(
+                  children: [
+                    Icon(Icons.play_arrow),
+                    Text('Start listening'),
+                  ],
+                )
+              : const Center(child: CircularProgressIndicator()),
+        );
+      },
+    );
+  }
+}
+
+class SaveBookButton extends StatelessWidget {
+  const SaveBookButton({
+    required this.controller,
+    required this.buttonReady,
+    super.key,
+  });
+
+  final BrowseBookDetailController controller;
+  final bool buttonReady;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: get<BrowseBookDetailController>().isBookInLibrary,
+      builder: (context, value, child) {
+        return ElevatedButton(
+          onPressed: buttonReady ? controller.saveBook : null,
+          child: Row(
+            children: value
+                ? [
+                    const Icon(Icons.bookmark_outlined),
+                    const Text('Remove'),
+                  ]
+                : [
+                    const Icon(Icons.bookmark_outline),
+                    const Text('Save'),
+                  ],
+          ),
+        );
+      },
+    );
+  }
 }
 
 // await playMultipleBooksFromBrowse(book, bookUriList)

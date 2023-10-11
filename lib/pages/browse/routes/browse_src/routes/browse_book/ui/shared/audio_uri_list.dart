@@ -15,6 +15,7 @@ class AudioUriList extends StatelessWidget {
       builder: (context, value, child) {
         switch (value) {
           case FutureStates.done:
+            logger.i('recived audio uris ${controller.audioUriList.value}');
             return DisplayAudioUri(bookUriList: controller.audioUriList.value);
           case FutureStates.loading:
             return Column(
