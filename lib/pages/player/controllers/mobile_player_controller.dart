@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math';
+
+import 'package:audicium/constants/assets.dart';
 import 'package:audicium/constants/player.dart';
-import 'package:audicium/pages/player/logic/mobile/just_audio_background_player.dart';
+import 'package:audicium/pages/player/logic/background_service/just_audio_background_player.dart';
 import 'package:audicium/pages/player/logic/player_interface.dart';
 import 'package:audicium_models/audicium_models.dart';
 import 'package:audio_service/audio_service.dart';
@@ -15,6 +17,8 @@ class MobilePlayerController extends PlayerInterface {
 
   // late final MediaKitBackgroundPlayer _audioHandler;
   late final JustAudioBackgroundPlayer audioHandler;
+
+  final idGen = Random();
 
   void init() {
     try {
@@ -160,10 +164,8 @@ class MobilePlayerController extends PlayerInterface {
   @override
   Future<void> stop() async => audioHandler.stop();
 
-  Future<List<Media>> createMedia(AudioBook book) async {
-    final rand = Random();
+  Future<List<MediaItem>> createMedia(AudioBook book) async {
     final mediaItems = <MediaItem>[];
-    final mediaKitItems = <Media>[];
 
     final headers = <String, String>{}; //TODO add headers to audiobook model
 
@@ -171,20 +173,21 @@ class MobilePlayerController extends PlayerInterface {
       final metaData = {
         PlayerConstants.metadataTitle: track.title ?? book.title,
         PlayerConstants.metadataAuthor: book.author ?? '',
-        PlayerConstants.metadataImage: book.coverImage ??
-            'https://wallpapers.com/images/hd/rick-and-morty-under-the-cosmic-sky-s4sbibvafaybc47x.webp',
+        PlayerConstants.metadataImage:
+            book.coverImage ?? AppAssets.defaultBackgroundImage,
       };
 
-      final mediaKitItem = Media(
-        track.getUri,
+      final mediaKitItem = MediaItem(
+        id: idGen.nextDouble().toString(),
+        title: metaData[PlayerConstants.metadataTitle]!,
+        artist: metaData[PlayerConstants.metadataAuthor],
         extras: metaData,
-        httpHeaders: headers.isEmpty ? null : headers,
       );
 
-      mediaKitItems.add(mediaKitItem);
+      mediaItems.add(mediaKitItem);
     }
 
-    return mediaKitItems;
+    return mediaItems;
   }
 
   @override
@@ -194,7 +197,7 @@ class MobilePlayerController extends PlayerInterface {
     int trackIndex = 0,
   }) async {
     final items = await createMedia(book);
-    await audioHandler.player.openTracks(items);
+    await audioHandler.addQueueItems(items);
     await skipToTrack(position: listenedPos, trackIndex: trackIndex);
     await play();
   }
