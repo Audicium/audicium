@@ -1,11 +1,12 @@
 import 'package:audicium/navigation/routes.dart';
+import 'package:audicium/pages/player/player_service.dart';
 import 'package:audicium/services/init.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initServices();
+  await initMediaPlayer();
   runApp(const MyApp());
 }
 

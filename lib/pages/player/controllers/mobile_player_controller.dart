@@ -8,7 +8,6 @@ import 'package:audicium/pages/player/logic/player_interface.dart';
 import 'package:audicium_models/audicium_models.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:media_kit/media_kit.dart';
 
 class MobilePlayerController extends PlayerInterface {
   MobilePlayerController({required this.audioHandler}) {
@@ -171,16 +170,18 @@ class MobilePlayerController extends PlayerInterface {
 
     for (final track in book.bookUris) {
       final metaData = {
-        PlayerConstants.metadataTitle: track.title ?? book.title,
-        PlayerConstants.metadataAuthor: book.author ?? '',
-        PlayerConstants.metadataImage:
-            book.coverImage ?? AppAssets.defaultBackgroundImage,
+        PlayerConstants.track: track.getUri,
       };
 
       final mediaKitItem = MediaItem(
         id: idGen.nextDouble().toString(),
-        title: metaData[PlayerConstants.metadataTitle]!,
-        artist: metaData[PlayerConstants.metadataAuthor],
+        title: track.title ?? book.title,
+        artist: book.author ?? '',
+        duration: track.duration == Duration.zero ? null : track.duration,
+        artHeaders: headers,
+        artUri: Uri.parse(
+          book.coverImage ?? AppAssets.defaultBackgroundImage,
+        ),
         extras: metaData,
       );
 

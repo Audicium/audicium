@@ -1,17 +1,11 @@
 import 'package:audicium/constants/utils.dart';
 import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/controllers/browse_book_details_controller.dart';
+import 'package:audicium/pages/player/logic/player_interface.dart';
 import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 
 class AudiobookActionButtons extends StatelessWidget {
-  const AudiobookActionButtons({
-    required this.book,
-    required this.isBookInLibrary,
-    super.key,
-  });
-
-  final AudioBook book;
-  final bool isBookInLibrary;
+  const AudiobookActionButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +21,7 @@ class AudiobookActionButtons extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               PlayActionButton(
-                controller: controller,
+                book: controller.libraryBook,
                 buttonReady: isMetaDataReady,
               ),
               SaveBookButton(
@@ -46,12 +40,12 @@ class AudiobookActionButtons extends StatelessWidget {
 
 class PlayActionButton extends StatelessWidget {
   const PlayActionButton({
-    required this.controller,
+    required this.book,
     required this.buttonReady,
     super.key,
   });
 
-  final BrowseBookDetailController controller;
+  final AudioBook? book;
   final bool buttonReady;
 
   @override
@@ -61,14 +55,11 @@ class PlayActionButton extends StatelessWidget {
       valueListenable: isPlayButtonReady,
       builder: (context, playReady, child) {
         return ElevatedButton(
-          onPressed: buttonReady && playReady
+          onPressed: buttonReady && playReady && book != null
               ? () async {
-                  // print(book.bookUris);
                   isPlayButtonReady.value = false;
-                  logger.i('playing book ${controller.selectedBook.title}');
-                  await Future<void>.delayed(const Duration(seconds: 1));
-                  // TODO: implement player
-                  // playerController.playBook(book);
+                  logger.i('playing book ${book!.title}');
+                  await get<PlayerInterface>().playBook(book!);
                   isPlayButtonReady.value = true;
                 }
               : null,

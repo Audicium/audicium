@@ -1,4 +1,6 @@
 import 'package:audicium/constants/player.dart';
+import 'package:audicium/constants/utils.dart';
+import 'package:audicium_models/audicium_models.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
@@ -136,9 +138,11 @@ class JustAudioBackgroundPlayer extends BaseAudioHandler {
   }
 
   UriAudioSource _createAudioSource(MediaItem mediaItem) {
+    final url = mediaItem.extras![PlayerConstants.track] as String;
+    logger.i('Playing $url');
     return AudioSource.uri(
       // headers: mediaItem.extras!['headers'] as Map<String, String>?,
-      Uri.parse(mediaItem.extras!['url'] as String),
+      Uri.parse(url),
       tag: mediaItem,
     );
   }

@@ -56,21 +56,14 @@ class _MobileBrowseBookPageState extends State<MobileBrowseBookPage> {
                     widthPercent: 1,
                   ),
                 ),
-                buildTitle(controller.selectedBook!),
+                buildTitle(controller.selectedBook),
                 buildAsyncBody(),
               ],
             ),
           ),
         ),
-        AudiobookActionButtons(
-          isBookInLibrary: controller.isBookInLibrary.value,
-          book: AudioBook.fromBrowseAudioBook(
-            book: controller.selectedBook,
-            bookUris: controller.audioUriList.value,
-          ),
-        ),
+        const AudiobookActionButtons(),
       ],
-
     );
   }
 

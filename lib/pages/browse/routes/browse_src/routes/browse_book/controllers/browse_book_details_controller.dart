@@ -17,11 +17,11 @@ class BrowseBookDetailController {
 
   final library = get<LibraryService>();
 
-  AudioBook? libraryBook; // stores the book from database if it exists
+  AudioBook? libraryBook; // stores the book from database if it exists or if converted from browse source
   final DisplayBook selectedBook; // stores the book selected from browse source
 
   final audioUriList =
-      ValueNotifier(<AudioInfo>[]); // holds final list that will be displayed
+  ValueNotifier(<AudioInfo>[]); // holds final list that will be displayed
 
   final isBookInLibrary = ValueNotifier(false);
 
@@ -38,14 +38,14 @@ class BrowseBookDetailController {
   // async listeners
   void metaDataFutureListener() {
     final metaDataFuture =
-        get<ExtensionController>().loadDetailsPage(selectedBook.bookUrl);
+    get<ExtensionController>().loadDetailsPage(selectedBook.bookUrl);
 
     metaDataFuture
         .then(
-      setMetadata,
+        setMetadata,
     )
         .onError(
-      (error, stackTrace) {
+          (error, stackTrace) {
         logger.e('Error getting metadata: $error');
         metaDataState.value = FutureStates.error;
         errorMessage = error.toString();
@@ -58,7 +58,7 @@ class BrowseBookDetailController {
       cancelOnError: true,
       audioUriList.updateElement,
       onDone: () {
-        // isMetaDataLoaded.value = true;
+        convertBrowseBookToAudioBook();
         metaDataState.value = FutureStates.done;
       },
       onError: (error, stack) {
@@ -133,6 +133,8 @@ class BrowseBookDetailController {
 
     // in-case we don't have any links
     if (value.bookUris == null) {
+      logger.i('No links found for ${selectedBook.bookUrl}');
+      metaDataState.value = FutureStates.error;
       return;
     }
     // in-case it can get all links immediately

@@ -1,3 +1,5 @@
+import 'package:audicium_models/audicium_models.dart';
+
 class PlayerConstants {
   static const String metadataTitle = 'title';
   static const String metadataImage = 'image';
@@ -7,4 +9,6 @@ class PlayerConstants {
   static const androidNotificationChannelId = 'app.dumbapps.audicium.audio';
 
   static const androidNotificationChannelName = 'Audicium';
+
+  static const String track = 'track';
 }
