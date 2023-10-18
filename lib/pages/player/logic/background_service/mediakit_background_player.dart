@@ -5,13 +5,15 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:media_kit/media_kit.dart';
 
-Future<MediaKitBackgroundPlayer> initAudioService(
+Future<MediaKitBackgroundPlayer> initMediaKitAudioService(
     MediaKitPlayer mediaKit) async {
   return AudioService.init(
     builder: () => MediaKitBackgroundPlayer(player: mediaKit),
     config: const AudioServiceConfig(
-      androidNotificationChannelId: 'app.dumbapps.audicium.audio',
-      androidNotificationChannelName: 'Audicium',
+      androidNotificationChannelId:
+          PlayerConstants.androidNotificationChannelId,
+      androidNotificationChannelName:
+          PlayerConstants.androidNotificationChannelName,
       androidNotificationOngoing: true,
       // todo add androidNotificationIcon
     ),

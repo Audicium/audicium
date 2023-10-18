@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:audicium/constants/player.dart';
-import 'package:audicium/pages/player/logic/mediakit_background_player.dart';
+import 'package:audicium/pages/player/logic/mobile/just_audio_background_player.dart';
 import 'package:audicium/pages/player/logic/player_interface.dart';
 import 'package:audicium_models/audicium_models.dart';
 import 'package:audio_service/audio_service.dart';
@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 
 class MobilePlayerController extends PlayerInterface {
-  MobilePlayerController(MediaKitBackgroundPlayer audioHandler) {
-    _audioHandler = audioHandler;
+  MobilePlayerController({required this.audioHandler}) {
     init();
   }
 
-  late final MediaKitBackgroundPlayer _audioHandler;
+  // late final MediaKitBackgroundPlayer _audioHandler;
+  late final JustAudioBackgroundPlayer audioHandler;
 
   void init() {
     try {
@@ -32,7 +32,7 @@ class MobilePlayerController extends PlayerInterface {
   final queue = ValueNotifier<List<String>>([]);
 
   void _listenToChangesInPlaylist() {
-    _audioHandler.queue.listen((playlist) {
+    audioHandler.queue.listen((playlist) {
       if (playlist.isEmpty) {
         queue.value = [];
         currentSongTitle.value = '';
@@ -47,7 +47,7 @@ class MobilePlayerController extends PlayerInterface {
   }
 
   void _listenToPlaybackState() {
-    _audioHandler.playbackState.listen((playbackState) {
+    audioHandler.playbackState.listen((playbackState) {
       if (queue.value.isNotEmpty) {
         final isPlaying = playbackState.playing;
         final processingState = playbackState.processingState;
@@ -74,7 +74,7 @@ class MobilePlayerController extends PlayerInterface {
   }
 
   void _listenToBufferedPosition() {
-    _audioHandler.playbackState.listen((playbackState) {
+    audioHandler.playbackState.listen((playbackState) {
       progressState.value = progressState.value.copyWith(
         buffered: playbackState.bufferedPosition,
       );
@@ -82,7 +82,7 @@ class MobilePlayerController extends PlayerInterface {
   }
 
   void _listenToTotalDuration() {
-    _audioHandler.mediaItem.listen((mediaItem) {
+    audioHandler.mediaItem.listen((mediaItem) {
       progressState.value = progressState.value.copyWith(
         total: mediaItem?.duration ?? Duration.zero,
       );
@@ -90,7 +90,7 @@ class MobilePlayerController extends PlayerInterface {
   }
 
   void _listenToChangesInSong() {
-    _audioHandler.mediaItem.listen((mediaItem) {
+    audioHandler.mediaItem.listen((mediaItem) {
       currentSongTitle.value = mediaItem?.title ?? '';
       currentImage.value =
           mediaItem?.artUri.toString() ?? Icons.music_note.toString();
@@ -99,8 +99,8 @@ class MobilePlayerController extends PlayerInterface {
   }
 
   void _updateSkipButtons() {
-    final mediaItem = _audioHandler.mediaItem.value;
-    final playlist = _audioHandler.queue.value;
+    final mediaItem = audioHandler.mediaItem.value;
+    final playlist = audioHandler.queue.value;
 
     if (playlist.length < 2 || mediaItem == null) {
       isFirstSong.value = true;
@@ -113,52 +113,52 @@ class MobilePlayerController extends PlayerInterface {
 
   @override
   Future<void> play() async {
-    await _audioHandler.play();
+    await audioHandler.play();
   }
 
   @override
   Future<void> pause() async {
-    await _audioHandler.pause();
+    await audioHandler.pause();
   }
 
   @override
   Future<void> seek(Duration position, {int? trackIndex}) async {
-    await _audioHandler.seek(position);
+    await audioHandler.seek(position);
   }
 
   @override
   Future<void> seekForward(Duration positionOffset) async {
     final seekVal = progressState.value.current + positionOffset;
     if (seekVal >= progressState.value.total) {
-      await _audioHandler.seek(progressState.value.total);
+      await audioHandler.seek(progressState.value.total);
       return;
     }
-    await _audioHandler.seek(seekVal);
+    await audioHandler.seek(seekVal);
   }
 
   @override
   Future<void> seekBackward(Duration positionOffset) async {
     final seekVal = progressState.value.current - positionOffset;
     if (seekVal <= Duration.zero) {
-      await _audioHandler.seek(Duration.zero);
+      await audioHandler.seek(Duration.zero);
       return;
     }
-    await _audioHandler.seek(seekVal);
+    await audioHandler.seek(seekVal);
   }
 
   @override
-  Future<void> previous() async => _audioHandler.skipToPrevious();
+  Future<void> previous() async => audioHandler.skipToPrevious();
 
   @override
-  Future<void> next() async => _audioHandler.skipToNext();
+  Future<void> next() async => audioHandler.skipToNext();
 
   @override
-  Future<void> setSpeed() async => _audioHandler.setSpeed(playbackSpeed.value);
+  Future<void> setSpeed() async => audioHandler.setSpeed(playbackSpeed.value);
 
-  Future<void> customDispose() async => _audioHandler.customAction('dispose');
+  Future<void> customDispose() async => audioHandler.customAction('dispose');
 
   @override
-  Future<void> stop() async => _audioHandler.stop();
+  Future<void> stop() async => audioHandler.stop();
 
   Future<List<Media>> createMedia(AudioBook book) async {
     final rand = Random();
@@ -194,7 +194,7 @@ class MobilePlayerController extends PlayerInterface {
     int trackIndex = 0,
   }) async {
     final items = await createMedia(book);
-    await _audioHandler.player.openTracks(items);
+    await audioHandler.player.openTracks(items);
     await skipToTrack(position: listenedPos, trackIndex: trackIndex);
     await play();
   }
@@ -204,7 +204,7 @@ class MobilePlayerController extends PlayerInterface {
     Duration position = Duration.zero,
     int trackIndex = 0,
   }) async {
-    await _audioHandler.skipToQueueItem(trackIndex);
+    await audioHandler.skipToQueueItem(trackIndex);
     await seek(position);
   }
 }

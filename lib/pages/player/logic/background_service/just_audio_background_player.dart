@@ -1,22 +1,23 @@
+import 'package:audicium/constants/player.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 
-Future<JustAudioBackgroundPlayer> initAudioService() async {
+Future<JustAudioBackgroundPlayer> initJustAudioService() async {
   return AudioService.init(
     builder: JustAudioBackgroundPlayer.new,
     config: const AudioServiceConfig(
-      androidNotificationChannelId: 'app.dumbapps.audicium.audio',
-      androidNotificationChannelName: 'Audio Service Demo',
+      androidNotificationChannelId:
+          PlayerConstants.androidNotificationChannelId,
+      androidNotificationChannelName:
+          PlayerConstants.androidNotificationChannelName,
       androidNotificationOngoing: true,
-      androidStopForegroundOnPause: true,
       // todo add androidNotificationIcon
     ),
   );
 }
 
 class JustAudioBackgroundPlayer extends BaseAudioHandler {
-
   JustAudioBackgroundPlayer() {
     try {
       _loadEmptyPlaylist().then((value) => debugPrint('Playlist loaded'));
@@ -28,12 +29,13 @@ class JustAudioBackgroundPlayer extends BaseAudioHandler {
       debugPrint('Error initializing audio handler: $e');
     }
   }
+
   final player = AudioPlayer();
   final _playlist = ConcatenatingAudioSource(children: []);
 
   Future<void> _loadEmptyPlaylist() async {
     try {
-      await player.setAudioSource(_playlist,preload: false);
+      await player.setAudioSource(_playlist, preload: false);
     } catch (e) {
       debugPrint('Error: $e');
     }
@@ -116,10 +118,9 @@ class JustAudioBackgroundPlayer extends BaseAudioHandler {
   // queue controls
   @override
   Future<void> addQueueItems(List<MediaItem> mediaItems) async {
-
     await _playlist.clear();
 
-    var sources = mediaItems.map(_createAudioSource).toList();
+    final sources = mediaItems.map(_createAudioSource).toList();
     await _playlist.addAll(sources);
 
     // notify system
@@ -144,32 +145,32 @@ class JustAudioBackgroundPlayer extends BaseAudioHandler {
 
   // Direct Controls
   @override
-  Future<void> play() async => await player.play();
+  Future<void> play() async => player.play();
 
   @override
-  Future<void> pause() async => await player.pause();
+  Future<void> pause() async => player.pause();
 
   @override
-  Future<void> seek(Duration position) async => await player.seek(position);
+  Future<void> seek(Duration position) async => player.seek(position);
 
   Future<void> seekToSpecificTrack(Duration position, int? index) async =>
       player.seek(position, index: index);
 
   @override
-  Future<void> skipToNext() async => await player.seekToNext();
+  Future<void> skipToNext() async => player.seekToNext();
 
   @override
-  Future<void> skipToPrevious() async => await player.seekToPrevious();
+  Future<void> skipToPrevious() async => player.seekToPrevious();
 
   @override
-  Future<void> setSpeed(double speed) async => await player.setSpeed(speed);
+  Future<void> setSpeed(double speed) async => player.setSpeed(speed);
 
   // dispose methods
   @override
   Future<void> customAction(String name, [Map<String, dynamic>? extras]) async {
     if (name == 'dispose') {
       await player.dispose();
-      super.stop();
+      await super.stop();
     }
   }
 
