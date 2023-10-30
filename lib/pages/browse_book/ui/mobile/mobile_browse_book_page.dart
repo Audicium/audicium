@@ -1,12 +1,11 @@
 import 'package:audicium/constants/assets.dart';
 import 'package:audicium/constants/utils.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/controllers/browse_book_details_controller.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/ui/shared/audio_book_cover.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/ui/shared/audio_uri_list.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/ui/shared/audiobook_action_buttons.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/ui/shared/audiouri_details.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/ui/shared/author_details.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/ui/shared/description_details.dart';
+import 'package:audicium/pages/browse_book/controllers/browse_book_details_controller.dart';
+import 'package:audicium/pages/browse_book/ui/shared/audio_book_cover.dart';
+import 'package:audicium/pages/browse_book/ui/shared/audio_uri_list.dart';
+import 'package:audicium/pages/browse_book/ui/shared/audiobook_action_buttons.dart';
+import 'package:audicium/pages/browse_book/ui/shared/author_details.dart';
+import 'package:audicium/pages/browse_book/ui/shared/description_details.dart';
 import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 

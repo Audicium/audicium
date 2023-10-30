@@ -1,13 +1,13 @@
 import 'package:audicium/constants/utils.dart';
 import 'package:audicium/navigation/navigation_routes.dart';
 import 'package:audicium/navigation/ui/shared/scaffold_selector.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/controllers/browse_book_details_controller.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/ui/browse_book.dart';
-import 'package:audicium/pages/browse/routes/browse_src/ui/browse_src.dart';
 import 'package:audicium/pages/browse/ui/browse.dart';
-import 'package:audicium/pages/library/routes/library_book/ui/library_book.dart';
+import 'package:audicium/pages/browse_book/controllers/browse_book_details_controller.dart';
+import 'package:audicium/pages/browse_book/ui/browse_book.dart';
+import 'package:audicium/pages/browse_src/ui/browse_src.dart';
 import 'package:audicium/pages/library/ui/library.dart';
 import 'package:audicium/pages/library/ui/test.dart';
+import 'package:audicium/pages/library_book/ui/library_book.dart';
 import 'package:audicium/pages/settings/ui/settings.dart';
 import 'package:audicium/plugins/plugins.dart';
 import 'package:audicium_extension_base/audicium_extension_base.dart';

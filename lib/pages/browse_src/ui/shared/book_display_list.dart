@@ -1,6 +1,5 @@
-import 'package:audicium/pages/browse/routes/browse_src/ui/shared/book_tile.dart';
+import 'package:audicium/pages/browse_src/ui/shared/book_tile.dart';
 import 'package:audicium_extension_base/audicium_extension_base.dart';
-import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 
 class BookDisplayList extends StatelessWidget {

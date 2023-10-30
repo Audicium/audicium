@@ -1,5 +1,5 @@
 import 'package:audicium/constants/utils.dart';
-import 'package:audicium/pages/browse/routes/browse_src/routes/browse_book/controllers/browse_book_details_controller.dart';
+import 'package:audicium/pages/browse_book/controllers/browse_book_details_controller.dart';
 import 'package:audicium/pages/player/logic/player_interface.dart';
 import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
