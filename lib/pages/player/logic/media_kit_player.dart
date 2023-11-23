@@ -1,8 +1,6 @@
 // ignore_for_file: implementation_imports
 
 import 'package:media_kit/media_kit.dart';
-import 'package:media_kit/src/models/player_state.dart';
-import 'package:media_kit/src/models/player_stream.dart';
 
 class MediaKitPlayer {
   MediaKitPlayer({required this.mediaKit});

@@ -1,9 +1,4 @@
-import 'package:audicium/navigation/navigation_routes.dart';
-import 'package:audicium/pages/browse/ui/shared/plugin_listile.dart';
-import 'package:audicium/plugins/plugins.dart';
-import 'package:audicium_models/audiobook/audiobook.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class MobileSettingsPage extends StatefulWidget {
   const MobileSettingsPage({super.key});

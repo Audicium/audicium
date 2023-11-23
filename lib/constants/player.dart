@@ -1,4 +1,3 @@
-import 'package:audicium_models/audicium_models.dart';
 
 class PlayerConstants {
   static const String metadataTitle = 'title';

@@ -1,6 +1,5 @@
 import 'package:audicium/constants/player.dart';
 import 'package:audicium/constants/utils.dart';
-import 'package:audicium_models/audicium_models.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
@@ -77,7 +76,7 @@ class JustAudioBackgroundPlayer extends BaseAudioHandler {
         bufferedPosition: player.bufferedPosition,
         speed: player.speed,
         queueIndex: event.currentIndex,
-      ));
+      ),);
     });
   }
 

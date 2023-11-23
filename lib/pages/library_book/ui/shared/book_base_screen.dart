@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BookBaseScreen extends StatelessWidget {
-  const BookBaseScreen({super.key, required this.body});
+  const BookBaseScreen({required this.body, super.key});
 
   final Widget body;
 

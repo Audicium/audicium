@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
         title: 'Audicium',
         routerConfig: mobileRouter,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.green,
+            brightness: Brightness.dark,
+          ),
           useMaterial3: true,
         ),
       ),

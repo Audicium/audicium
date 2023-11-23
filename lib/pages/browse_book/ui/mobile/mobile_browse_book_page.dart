@@ -9,7 +9,7 @@ import 'package:audicium/pages/browse_book/ui/shared/description_details.dart';
 import 'package:audicium_models/audicium_models.dart';
 import 'package:flutter/material.dart';
 
-import '../shared/error_widget.dart';
+import 'package:audicium/pages/browse_book/ui/shared/error_widget.dart';
 
 class MobileBrowseBookPage extends StatefulWidget {
   const MobileBrowseBookPage({super.key});

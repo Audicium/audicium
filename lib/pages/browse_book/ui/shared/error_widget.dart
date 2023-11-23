@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class DisplayError extends StatelessWidget {
-  const DisplayError({super.key, required this.message, this.error});
+  const DisplayError({required this.message, super.key, this.error});
 
   final String? message;
   final String? error;

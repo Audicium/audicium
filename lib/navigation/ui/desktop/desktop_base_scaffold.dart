@@ -1,4 +1,3 @@
-import 'package:audicium/navigation/ui/desktop/desktop_nav_rail.dart';
 import 'package:audicium/pages/player/ui/desktop_player.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,10 +25,9 @@ class DesktopBaseScaffold extends StatelessWidget {
               ],
             ),
           ),
-          const DesktopPlayer()
+          const DesktopPlayer(),
         ],
       ),
     );
-    ;
   }
 }

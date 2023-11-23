@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:media_kit/media_kit.dart';
 
 Future<MediaKitBackgroundPlayer> initMediaKitAudioService(
-    MediaKitPlayer mediaKit) async {
+    MediaKitPlayer mediaKit,) async {
   return AudioService.init(
     builder: () => MediaKitBackgroundPlayer(player: mediaKit),
     config: const AudioServiceConfig(

@@ -5,6 +5,7 @@ One audiobook app to rule them all
 ## Todo
 
 - [x] Add player
+  - [ ] handle entire lifecycle of the player 
 - [ ] handle errors especially network ones
 - [ ] fix Ui 
 - [ ] Add duration listened to book in player
