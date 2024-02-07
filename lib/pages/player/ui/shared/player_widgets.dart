@@ -1,10 +1,10 @@
 import 'package:audicium/constants/assets.dart';
 import 'package:audicium/constants/utils.dart';
-import 'package:audicium/pages/player/logic/player_interface.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:vinyl/vinyl.dart';
 
 class MultiListenable<A, B> extends StatelessWidget {
   const MultiListenable({
@@ -180,7 +180,7 @@ class PlayPauseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = get<PlayerInterface>();
+    final controller = vinyl.player;
     return MultiListenable<bool, ButtonState>(
       first: controller.isStopped,
       second: controller.playButton,
