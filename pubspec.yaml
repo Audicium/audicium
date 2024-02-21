@@ -53,21 +53,17 @@ dependencies:
   percent_indicator: ^4.2.3
 
   # custom packages
-  audicium_extension_base:
-    path: ../audicium_extension_base
-  audicium_models:
-    path: ../audicium_models
+  extension_manager:
+    git:
+      url: https://github.com/Audicium/audicium_extension_manager
+      ref: main
+
 
   #logging
   logger: ^2.0.2+1
 
   # website plugins
-  audicium_youtube:
-    path: ../Audicium sources/youtube
-  audicium_galaxy_audiobooks:
-    path: ../Audicium sources/galaxy_audiobooks
-  hotaudiobooks:
-    path: ../Audicium sources/hotaudiobooks
+
   # Nav
   go_router: ^13.1.0
 
